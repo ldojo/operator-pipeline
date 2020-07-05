@@ -403,7 +403,7 @@
             <mismatchingMimeTypesOverrideList></mismatchingMimeTypesOverrideList>
             <bypassHeadRequests>false</bypassHeadRequests>
             <username>lshulman@redhat.com</username>
-            <password>AM.23ZT7.AES128.2cFxqSmZZ7XWuCcDmSRksuxJD1nVh4mAeWcqvyhCiUvQyMGk</password>
+	    <password>X8aYe#WxhB6U</password>
             <allowAnyHostAuth>false</allowAnyHostAuth>
             <socketTimeoutMillis>15000</socketTimeoutMillis>
             <enableCookieManagement>false</enableCookieManagement>
@@ -465,7 +465,7 @@
             <mismatchingMimeTypesOverrideList></mismatchingMimeTypesOverrideList>
             <bypassHeadRequests>false</bypassHeadRequests>
             <username>lshulman@redhat.com</username>
-            <password>AM.23ZT7.AES128.2cbYAHj3ihgb6uSiYAxWfsuGELvFt4ttwNKaY9evtBv2fuRW</password>
+            <password>X8aYe#WxhB6U</password>
             <allowAnyHostAuth>false</allowAnyHostAuth>
             <socketTimeoutMillis>15000</socketTimeoutMillis>
             <enableCookieManagement>false</enableCookieManagement>
@@ -647,7 +647,7 @@
             <mismatchingMimeTypesOverrideList></mismatchingMimeTypesOverrideList>
             <bypassHeadRequests>false</bypassHeadRequests>
             <username>lshulman@redhat.com</username>
-            <password>AM.23ZT7.AES128.2edQEhnZPr24VvhZ15zcFDEwvLX6zXMfoVATP19MtUoJrBM5</password>
+            <password>X8aYe#WxhB6U</password>
             <allowAnyHostAuth>false</allowAnyHostAuth>
             <socketTimeoutMillis>15000</socketTimeoutMillis>
             <enableCookieManagement>false</enableCookieManagement>
