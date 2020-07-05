@@ -73,3 +73,15 @@ objects:
               memory: 4Gi
         restartPolicy: Always
         terminationGracePeriodSeconds: 30
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    name: ${NAME}
+  spec:
+    port:
+      targetPort: http
+    to:
+      kind: Service
+      name: ${NAME}
+      weight: 100
+    wildcardPolicy: None
