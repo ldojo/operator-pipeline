@@ -402,8 +402,8 @@
             <blockMismatchingMimeTypes>true</blockMismatchingMimeTypes>
             <mismatchingMimeTypesOverrideList></mismatchingMimeTypesOverrideList>
             <bypassHeadRequests>false</bypassHeadRequests>
-            <username>$JFROG_USER</username>
-	    <password>$JFROG_PASSWD</password>
+            <username>$JFROG_RH_USER</username>
+	    <password>$JFROG_RH_PASSWD</password>
             <allowAnyHostAuth>false</allowAnyHostAuth>
             <socketTimeoutMillis>15000</socketTimeoutMillis>
             <enableCookieManagement>false</enableCookieManagement>
@@ -464,8 +464,8 @@
             <blockMismatchingMimeTypes>true</blockMismatchingMimeTypes>
             <mismatchingMimeTypesOverrideList></mismatchingMimeTypesOverrideList>
             <bypassHeadRequests>false</bypassHeadRequests>
-            <username>$JFROG_USER</username>
-            <password>$JFROG_PASSWD</password>
+            <username>$JFROG_RH_USER</username>
+            <password>$JFROG_RH_PASSWD</password>
             <allowAnyHostAuth>false</allowAnyHostAuth>
             <socketTimeoutMillis>15000</socketTimeoutMillis>
             <enableCookieManagement>false</enableCookieManagement>
@@ -646,8 +646,8 @@
             <blockMismatchingMimeTypes>true</blockMismatchingMimeTypes>
             <mismatchingMimeTypesOverrideList></mismatchingMimeTypesOverrideList>
             <bypassHeadRequests>false</bypassHeadRequests>
-            <username>$JFROG_USER</username>
-            <password>$JFROG_PASSWD</password>
+            <username>$JFROG_RH_USER</username>
+            <password>$JFROG_RH_PASSWD</password>
             <allowAnyHostAuth>false</allowAnyHostAuth>
             <socketTimeoutMillis>15000</socketTimeoutMillis>
             <enableCookieManagement>false</enableCookieManagement>
