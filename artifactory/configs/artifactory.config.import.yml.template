@@ -1,0 +1,9 @@
+---
+version: 1
+GeneralConfiguration:
+  licenseKey : "$JFROG_LICENSE"
+  proxies : 
+OnboardingConfiguration:
+  repoTypes :
+  - docker
+  - generic
