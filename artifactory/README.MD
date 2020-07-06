@@ -17,3 +17,7 @@ cat configs/artifactory.config.xml.template | envsubst  > /tmp/artifactory.confi
 curl -u admin:password -X POST -H "Content-type:application/xml" --data-binary @/tmp/artifactory.config.xml http://<host>:<port>/artifactory/api/system/configuration
 
 ```
+
+
+For Artifactory via OperatorHub:
+https://dev.to/jfrog/artifactory-xray-on-openshift-via-operatorhub-2cn3
