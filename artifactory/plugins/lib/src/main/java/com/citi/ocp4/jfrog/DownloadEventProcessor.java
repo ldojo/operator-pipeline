@@ -1,15 +1,21 @@
 package com.citi.ocp4.jfrog;
 
+import org.artifactory.md.Properties;
 import java.util.logging.Logger;
 
 import org.artifactory.request.Request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 import org.artifactory.repo.RepoPath;
+
+abstract class MixIn {
+	@JsonIgnore abstract Properties properties(); 
+}
 
 public class DownloadEventProcessor {
 	static Logger log = Logger.getLogger("stuff");
@@ -22,11 +28,11 @@ public class DownloadEventProcessor {
 	public static void printInput(Request request, RepoPath repoPath) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		ObjectWriter writer = mapper.writer().withoutAttribute("properties");
+		mapper.addMixIn(Request.class, MixIn.class);
 		
 
 		log.severe("request: " + request.toString() + " isinstanceof: " + (request instanceof Request));
-		log.severe("request json: " + writer.writeValueAsString(request));
+		log.severe("request json: " + mapper.writeValueAsString(request));
 		log.severe("repoPath: " + repoPath.toString()+ " isinstanceof: " + (repoPath instanceof RepoPath) + " class: " + repoPath.getClass());
 		log.severe("repoPath json: " + mapper.writeValueAsString(repoPath));
 
