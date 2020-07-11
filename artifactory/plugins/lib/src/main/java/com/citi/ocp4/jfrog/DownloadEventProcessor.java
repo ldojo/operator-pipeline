@@ -17,10 +17,10 @@ public class DownloadEventProcessor {
 		log.info("repoPath: " + repoPath.toString());
 	}
 	
-	public static void printInput(Request request, Object repoPath) throws JsonProcessingException {
+	public static void printInput(Request request, RepoPath repoPath) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		log.severe("request: " + request.toString() + " isinstanceof: " + (request instanceof Request));
-		log.severe("request json: " + mapper.writeValueAsString(request));
+		//log.severe("request json: " + mapper.writeValueAsString(request));
 		log.severe("repoPath: " + repoPath.toString()+ " isinstanceof: " + (repoPath instanceof RepoPath) + " class: " + repoPath.getClass());
 		log.severe("repoPath json: " + mapper.writeValueAsString(repoPath));
 
