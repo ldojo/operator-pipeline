@@ -15,6 +15,6 @@ public class DownloadEventProcessor {
 	
 	public static void printInput(Request request, Object repoPath) {
 		log.severe("request: " + request.toString() + " isinstanceof: " + (request instanceof Request));
-		log.severe("repoPath: " + repoPath.toString()+ " isinstanceof: " + (request instanceof RepoPath));
+		log.severe("repoPath: " + repoPath.toString()+ " isinstanceof: " + (request instanceof RepoPath) + " class: " + repoPath.getClass());
 	}
 }
