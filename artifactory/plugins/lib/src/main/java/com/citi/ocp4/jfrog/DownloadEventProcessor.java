@@ -14,7 +14,7 @@ public class DownloadEventProcessor {
 	}
 	
 	public static void printInput(Object request, Object repoPath) {
-		log.info("request: " + request.toString());
-		log.info("repoPath: " + repoPath.toString());
+		log.severe("request: " + request.toString());
+		log.severe("repoPath: " + repoPath.toString());
 	}
 }
