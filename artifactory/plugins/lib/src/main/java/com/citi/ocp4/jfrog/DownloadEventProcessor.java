@@ -6,9 +6,14 @@ import org.artifactory.api.repo.Request;
 import org.artifactory.repo.RepoPath;
 
 public class DownloadEventProcessor {
-	Logger log = Logger.getLogger("stuff");
+	static Logger log = Logger.getLogger("stuff");
 	
 	public void afterDownload(Request request, RepoPath repoPath) {
+		log.info("request: " + request.toString());
+		log.info("repoPath: " + repoPath.toString());
+	}
+	
+	public static void printInput(Request request, RepoPath repoPath) {
 		log.info("request: " + request.toString());
 		log.info("repoPath: " + repoPath.toString());
 	}
