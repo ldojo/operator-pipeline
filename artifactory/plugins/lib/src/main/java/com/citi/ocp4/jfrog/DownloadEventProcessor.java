@@ -13,7 +13,7 @@ public class DownloadEventProcessor {
 		log.info("repoPath: " + repoPath.toString());
 	}
 	
-	public static void printInput(Request request, RepoPath repoPath) {
+	public static void printInput(Object request, Object repoPath) {
 		log.info("request: " + request.toString());
 		log.info("repoPath: " + repoPath.toString());
 	}
