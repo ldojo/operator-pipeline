@@ -13,7 +13,7 @@ public class DownloadEventProcessor {
 		log.info("repoPath: " + repoPath.toString());
 	}
 	
-	public static void printInput(Object request, Object repoPath) {
+	public static void printInput(Request request, Object repoPath) {
 		log.severe("request: " + request.toString() + " isinstanceof: " + (request instanceof Request));
 		log.severe("repoPath: " + repoPath.toString()+ " isinstanceof: " + (request instanceof RepoPath));
 	}
