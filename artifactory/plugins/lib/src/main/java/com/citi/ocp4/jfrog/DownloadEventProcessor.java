@@ -2,7 +2,7 @@ package com.citi.ocp4.jfrog;
 
 import java.util.logging.Logger;
 
-import org.artifactory.api.repo.Request;
+import org.artifactory.request.Request;
 import org.artifactory.repo.RepoPath;
 
 public class DownloadEventProcessor {
