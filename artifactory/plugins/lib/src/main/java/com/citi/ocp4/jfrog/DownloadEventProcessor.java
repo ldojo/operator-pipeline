@@ -28,24 +28,24 @@ public class DownloadEventProcessor {
 
 	
 	public static void printInput(Request request, RepoPath repoPath) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		mapper.addMixIn(request.getClass(), MixIn.class);
+		
 		Map<String,Object> payload = new HashMap<String,Object>();
 		payload.put("repoPath", repoPath);
 		payload.put("request", request);
 		payload.put("requestProperties", request.getProperties().entries());
-		String downloadEventProcessorUrl = System.getenv(DownloadEventProcessor.JFROG_EVENT_PROCESSOR_ENV);
-		sendPayload(downloadEventProcessorUrl, payload);
-		
-	}
-
-	private static void sendPayload(String downloadEventProcessorUrl, Map<String, Object> payload) throws JsonProcessingException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-		mapper.addMixIn(Request.class, MixIn.class);
 		String payloadJson = mapper.writeValueAsString(payload);
+
+		String downloadEventProcessorUrl = System.getenv(DownloadEventProcessor.JFROG_EVENT_PROCESSOR_ENV);
 		try {
 			org.apache.http.client.fluent.Request.Post(downloadEventProcessorUrl).bodyString(payloadJson, ContentType.APPLICATION_JSON).execute().returnContent();
 		} catch (IOException e) {
 			log.severe("could not send download event payload to " + downloadEventProcessorUrl + ". Exception: " + e.getMessage());
 		}
+		
 	}
+
+
 }
