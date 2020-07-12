@@ -1,10 +1,10 @@
-package redhat.ocp4.operators.catalog.operatorcatalogtools;
+package com.ocp4.artifactory.events;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OperatorCatalogUtilApplicationTests {
+class DownloadEventProcessorTests {
 
 	@Test
 	void contextLoads() {

@@ -1,4 +1,4 @@
-package redhat.ocp4.operators.catalog.utils;
+package com.ocp4.artifactory.events;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,10 +13,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 
-public class OperatorCatalogUtilApplication {
+public class DownloadEventProcessorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OperatorCatalogUtilApplication.class, args);
+		SpringApplication.run(DownloadEventProcessorApplication.class, args);
 	}
 	
     @Bean

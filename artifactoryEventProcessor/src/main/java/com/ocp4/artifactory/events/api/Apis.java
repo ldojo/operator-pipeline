@@ -1,4 +1,4 @@
-package redhat.ocp4.operators.catalog.utils.api;
+package com.ocp4.artifactory.events.api;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

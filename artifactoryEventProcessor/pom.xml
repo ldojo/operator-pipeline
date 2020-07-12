@@ -9,11 +9,11 @@
 		<version>2.3.0.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>redhat.ocp4.operators.catalog</groupId>
-	<artifactId>operator-catalog-tools</artifactId>
+	<groupId>com.ocp4.artifactory.events</groupId>
+	<artifactId>download-event-processor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>operator-catalog-util</name>
-	<description>Utilities for managing the Operator Catalog</description>
+	<name>download-event-processor</name>
+	<description>Service that consumes download events from an artifactory instance</description>
 
 	<properties>
 		<java.version>1.8</java.version>
