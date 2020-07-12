@@ -1,16 +1,16 @@
 package com.citi.ocp4.jfrog;
 
-import org.artifactory.md.Properties;
-
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import org.artifactory.request.Request;
+import org.apache.http.entity.ContentType;
 import org.artifactory.repo.RepoPath;
+import org.artifactory.request.Request;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -23,24 +23,29 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class DownloadEventProcessor {
 	static Logger log = Logger.getLogger("stuff");
+	private static final String JFROG_EVENT_PROCESSOR_ENV = "JFROG_EVENT_PROCESSOR";
 	
-	public void afterDownload(Request request, RepoPath repoPath) {
-		log.info("request: " + request.toString());
-		log.info("repoPath: " + repoPath.toString());
-	}
+
 	
 	public static void printInput(Request request, RepoPath repoPath) throws JsonProcessingException {
-		ObjectMapper mapper = new ObjectMapper();
-		//mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-		mapper.addMixIn(request.getClass(), MixIn.class);
-		
-
-		
 		Map<String,Object> payload = new HashMap<String,Object>();
 		payload.put("repoPath", repoPath);
 		payload.put("request", request);
 		payload.put("requestProperties", request.getProperties().entries());
-		log.severe("payload: " + mapper.writeValueAsString(payload));
+		String downloadEventProcessorUrl = System.getenv(DownloadEventProcessor.JFROG_EVENT_PROCESSOR_ENV);
+		sendPayload(downloadEventProcessorUrl, payload);
+		
+	}
+
+	private static void sendPayload(String downloadEventProcessorUrl, Map<String, Object> payload) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		mapper.addMixIn(Request.class, MixIn.class);
+		String payloadJson = mapper.writeValueAsString(payload);
+		try {
+			org.apache.http.client.fluent.Request.Post(downloadEventProcessorUrl).bodyString(payloadJson, ContentType.APPLICATION_JSON).execute().returnContent();
+		} catch (IOException e) {
+			log.severe("could not send download event payload to " + downloadEventProcessorUrl + ". Exception: " + e.getMessage());
+		}
 	}
 }
