@@ -12,8 +12,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
-abstract class MixIn {
-	@JsonIgnore abstract String properties(); 
+ abstract class MixIn {
+	@JsonIgnore(true) 
+	String properties; 
 }
 
 public class DownloadEventProcessor {
