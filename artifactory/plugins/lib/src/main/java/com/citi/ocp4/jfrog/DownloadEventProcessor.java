@@ -1,6 +1,9 @@
 package com.citi.ocp4.jfrog;
 
 import org.artifactory.md.Properties;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.artifactory.request.Request;
@@ -32,10 +35,12 @@ public class DownloadEventProcessor {
 		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		mapper.addMixIn(request.getClass(), MixIn.class);
 		
-		log.severe("request: " + request.toString() + " isinstanceof: " + (request instanceof Request));
-		log.severe("request json: " + mapper.writeValueAsString(request));
-		log.severe("repoPath: " + repoPath.toString()+ " isinstanceof: " + (repoPath instanceof RepoPath) + " class: " + repoPath.getClass());
-		log.severe("repoPath json: " + mapper.writeValueAsString(repoPath));
 
+		
+		Map<String,Object> payload = new HashMap<String,Object>();
+		payload.put("repoPath", repoPath);
+		payload.put("request", request);
+		payload.put("requestProperties", request.getProperties().entries());
+		log.severe("payload: " + payload);
 	}
 }
