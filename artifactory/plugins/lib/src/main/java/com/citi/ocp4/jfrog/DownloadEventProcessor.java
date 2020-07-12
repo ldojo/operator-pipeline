@@ -4,17 +4,16 @@ import org.artifactory.md.Properties;
 import java.util.logging.Logger;
 
 import org.artifactory.request.Request;
-
+import org.artifactory.repo.RepoPath;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 
-import org.artifactory.repo.RepoPath;
+
 
 abstract class MixIn {
-	@JsonIgnore abstract Properties properties(); 
+	@JsonIgnore abstract String properties(); 
 }
 
 public class DownloadEventProcessor {
@@ -28,9 +27,8 @@ public class DownloadEventProcessor {
 	public static void printInput(Request request, RepoPath repoPath) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		mapper.addMixIn(Request.class, MixIn.class);
+		mapper.addMixIn(request.getClass(), MixIn.class);
 		
-
 		log.severe("request: " + request.toString() + " isinstanceof: " + (request instanceof Request));
 		log.severe("request json: " + mapper.writeValueAsString(request));
 		log.severe("repoPath: " + repoPath.toString()+ " isinstanceof: " + (repoPath instanceof RepoPath) + " class: " + repoPath.getClass());
