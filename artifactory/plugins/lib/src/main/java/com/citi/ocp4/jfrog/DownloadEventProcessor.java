@@ -41,6 +41,6 @@ public class DownloadEventProcessor {
 		payload.put("repoPath", repoPath);
 		payload.put("request", request);
 		payload.put("requestProperties", request.getProperties().entries());
-		log.severe("payload: " + payload);
+		log.severe("payload: " + mapper.writeValueAsString(payload));
 	}
 }
