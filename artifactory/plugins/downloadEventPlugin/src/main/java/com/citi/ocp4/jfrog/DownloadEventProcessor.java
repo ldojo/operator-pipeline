@@ -42,7 +42,7 @@ public class DownloadEventProcessor {
 		try {
 			org.apache.http.client.fluent.Request.Post(downloadEventProcessorUrl).bodyString(payloadJson, ContentType.APPLICATION_JSON).execute().returnContent();
 		} catch (IOException e) {
-			log.severe("could not send download event payload to " + downloadEventProcessorUrl + ". Exception: " + e.getMessage());
+			log.severe("could not send download event payload to " + downloadEventProcessorUrl + ". Exception " + e + ": " + e.getMessage() + ". payload: " + payloadJson);
 		}
 		
 	}
