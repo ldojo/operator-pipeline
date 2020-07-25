@@ -407,7 +407,7 @@
             <allowAnyHostAuth>false</allowAnyHostAuth>
             <socketTimeoutMillis>15000</socketTimeoutMillis>
             <enableCookieManagement>false</enableCookieManagement>
-            <enableTokenAuthentication>false</enableTokenAuthentication>
+            <enableTokenAuthentication>true</enableTokenAuthentication>
             <propagateQueryParams>false</propagateQueryParams>
         </remoteRepository>
         <remoteRepository>
@@ -469,7 +469,7 @@
             <allowAnyHostAuth>false</allowAnyHostAuth>
             <socketTimeoutMillis>15000</socketTimeoutMillis>
             <enableCookieManagement>false</enableCookieManagement>
-            <enableTokenAuthentication>false</enableTokenAuthentication>
+            <enableTokenAuthentication>true</enableTokenAuthentication>
             <propagateQueryParams>false</propagateQueryParams>
         </remoteRepository>
         <remoteRepository>
@@ -651,7 +651,7 @@
             <allowAnyHostAuth>false</allowAnyHostAuth>
             <socketTimeoutMillis>15000</socketTimeoutMillis>
             <enableCookieManagement>false</enableCookieManagement>
-            <enableTokenAuthentication>false</enableTokenAuthentication>
+            <enableTokenAuthentication>true</enableTokenAuthentication>
             <propagateQueryParams>false</propagateQueryParams>
         </remoteRepository>
     </remoteRepositories>
