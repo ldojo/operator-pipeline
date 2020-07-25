@@ -12,7 +12,9 @@ oc process -f artifactory-template.yml -p JFROG_RH_USER=<user> -p JFROG_RH_PASSW
 
 ### launch via podman
 ```
-sudo podman run --name artifactory --rm -it -v /path/to/license/artifactory.lic:/artifactory_extra_conf/artifactory.lic:Z -p 8081:8081 --env JFROG_EVENT_PROCESSOR="http://localhost:8080/downloadEvent" --env JFROG_RH_PASSWD=<password> --env JFROG_RH_USER=<user>  artifactory
+sudo podman run --name artifactory --rm -it -v /path/to/license/artifactory.lic:/artifactory_extra_conf/artifactory.lic:Z \
+  -p 8081:8081 --env JFROG_EVENT_PROCESSOR="http://localhost:8080/downloadEvent" \ 
+  --env JFROG_RH_PASSWD=<password> --env JFROG_RH_USER=<user>  artifactory
 ```
 
 For Artifactory via OperatorHub:
