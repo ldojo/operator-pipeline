@@ -77,7 +77,7 @@
             <handleSnapshots>true</handleSnapshots>
             <maxUniqueSnapshots>0</maxUniqueSnapshots>
             <maxUniqueTags>0</maxUniqueTags>
-            <blockPushingSchema1>true</blockPushingSchema1>
+            <blockPushingSchema1>false</blockPushingSchema1>
             <suppressPomConsistencyChecks>true</suppressPomConsistencyChecks>
             <propertySets>
                 <propertySetRef>artifactory</propertySetRef>
@@ -102,7 +102,7 @@
             <handleSnapshots>true</handleSnapshots>
             <maxUniqueSnapshots>0</maxUniqueSnapshots>
             <maxUniqueTags>0</maxUniqueTags>
-            <blockPushingSchema1>true</blockPushingSchema1>
+            <blockPushingSchema1>false</blockPushingSchema1>
             <suppressPomConsistencyChecks>true</suppressPomConsistencyChecks>
             <propertySets>
                 <propertySetRef>artifactory</propertySetRef>
@@ -127,7 +127,7 @@
             <handleSnapshots>true</handleSnapshots>
             <maxUniqueSnapshots>0</maxUniqueSnapshots>
             <maxUniqueTags>0</maxUniqueTags>
-            <blockPushingSchema1>true</blockPushingSchema1>
+            <blockPushingSchema1>false</blockPushingSchema1>
             <suppressPomConsistencyChecks>true</suppressPomConsistencyChecks>
             <propertySets>
                 <propertySetRef>artifactory</propertySetRef>
@@ -202,7 +202,7 @@
             <handleSnapshots>true</handleSnapshots>
             <maxUniqueSnapshots>0</maxUniqueSnapshots>
             <maxUniqueTags>0</maxUniqueTags>
-            <blockPushingSchema1>true</blockPushingSchema1>
+            <blockPushingSchema1>false</blockPushingSchema1>
             <suppressPomConsistencyChecks>true</suppressPomConsistencyChecks>
             <propertySets>
                 <propertySetRef>artifactory</propertySetRef>
@@ -254,7 +254,7 @@
             <handleSnapshots>true</handleSnapshots>
             <maxUniqueSnapshots>0</maxUniqueSnapshots>
             <maxUniqueTags>0</maxUniqueTags>
-            <blockPushingSchema1>true</blockPushingSchema1>
+            <blockPushingSchema1>false</blockPushingSchema1>
             <suppressPomConsistencyChecks>true</suppressPomConsistencyChecks>
             <propertySets>
                 <propertySetRef>artifactory</propertySetRef>
@@ -307,7 +307,7 @@
             <handleSnapshots>true</handleSnapshots>
             <maxUniqueSnapshots>0</maxUniqueSnapshots>
             <maxUniqueTags>0</maxUniqueTags>
-            <blockPushingSchema1>true</blockPushingSchema1>
+            <blockPushingSchema1>false</blockPushingSchema1>
             <suppressPomConsistencyChecks>true</suppressPomConsistencyChecks>
             <propertySets>
                 <propertySetRef>artifactory</propertySetRef>
@@ -360,7 +360,7 @@
             <handleSnapshots>true</handleSnapshots>
             <maxUniqueSnapshots>0</maxUniqueSnapshots>
             <maxUniqueTags>0</maxUniqueTags>
-            <blockPushingSchema1>true</blockPushingSchema1>
+            <blockPushingSchema1>false</blockPushingSchema1>
             <suppressPomConsistencyChecks>true</suppressPomConsistencyChecks>
             <propertySets>
                 <propertySetRef>artifactory</propertySetRef>
@@ -407,7 +407,7 @@
             <allowAnyHostAuth>false</allowAnyHostAuth>
             <socketTimeoutMillis>15000</socketTimeoutMillis>
             <enableCookieManagement>false</enableCookieManagement>
-            <enableTokenAuthentication>true</enableTokenAuthentication>
+            <enableTokenAuthentication>false</enableTokenAuthentication>
             <propagateQueryParams>false</propagateQueryParams>
         </remoteRepository>
         <remoteRepository>
@@ -422,7 +422,7 @@
             <handleSnapshots>true</handleSnapshots>
             <maxUniqueSnapshots>0</maxUniqueSnapshots>
             <maxUniqueTags>0</maxUniqueTags>
-            <blockPushingSchema1>true</blockPushingSchema1>
+            <blockPushingSchema1>false</blockPushingSchema1>
             <suppressPomConsistencyChecks>true</suppressPomConsistencyChecks>
             <propertySets>
                 <propertySetRef>artifactory</propertySetRef>
@@ -469,7 +469,7 @@
             <allowAnyHostAuth>false</allowAnyHostAuth>
             <socketTimeoutMillis>15000</socketTimeoutMillis>
             <enableCookieManagement>false</enableCookieManagement>
-            <enableTokenAuthentication>true</enableTokenAuthentication>
+            <enableTokenAuthentication>false</enableTokenAuthentication>
             <propagateQueryParams>false</propagateQueryParams>
         </remoteRepository>
         <remoteRepository>
@@ -544,7 +544,7 @@
             <handleSnapshots>true</handleSnapshots>
             <maxUniqueSnapshots>0</maxUniqueSnapshots>
             <maxUniqueTags>0</maxUniqueTags>
-            <blockPushingSchema1>true</blockPushingSchema1>
+            <blockPushingSchema1>false</blockPushingSchema1>
             <suppressPomConsistencyChecks>true</suppressPomConsistencyChecks>
             <propertySets>
                 <propertySetRef>artifactory</propertySetRef>
@@ -589,7 +589,7 @@
             <allowAnyHostAuth>false</allowAnyHostAuth>
             <socketTimeoutMillis>15000</socketTimeoutMillis>
             <enableCookieManagement>false</enableCookieManagement>
-            <enableTokenAuthentication>true</enableTokenAuthentication>
+            <enableTokenAuthentication>false</enableTokenAuthentication>
             <propagateQueryParams>false</propagateQueryParams>
         </remoteRepository>
         <remoteRepository>
@@ -651,7 +651,7 @@
             <allowAnyHostAuth>false</allowAnyHostAuth>
             <socketTimeoutMillis>15000</socketTimeoutMillis>
             <enableCookieManagement>false</enableCookieManagement>
-            <enableTokenAuthentication>true</enableTokenAuthentication>
+            <enableTokenAuthentication>false</enableTokenAuthentication>
             <propagateQueryParams>false</propagateQueryParams>
         </remoteRepository>
     </remoteRepositories>
