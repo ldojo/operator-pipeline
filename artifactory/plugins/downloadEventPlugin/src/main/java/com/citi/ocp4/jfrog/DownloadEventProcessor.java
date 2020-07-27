@@ -27,15 +27,12 @@ public class DownloadEventProcessor {
 	
 
 	
-	public static void printInput(Request request, RepoPath repoPath) throws JsonProcessingException {
+	public static void printInput( RepoPath repoPath) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-		mapper.addMixIn(request.getClass(), MixIn.class);
 		
 		Map<String,Object> payload = new HashMap<String,Object>();
 		payload.put("repoPath", repoPath);
-		payload.put("request", request);
-		payload.put("requestProperties", request.getProperties().entries());
 		String payloadJson = mapper.writeValueAsString(payload);
 
 		String downloadEventProcessorUrl = System.getenv(DownloadEventProcessor.JFROG_EVENT_PROCESSOR_ENV);
