@@ -7,9 +7,13 @@ FROM docker.bintray.io/jfrog/artifactory-pro:6.20.1
 COPY configs /opt/configs
 COPY scripts/init.sh /init.sh
 COPY configs/artifactory.config.xml.template /artifactory_extra_conf/artifactory.config.xml.template
+COPY plugins/downloadEventPlugin/target/*.jar /artifactory_extra_conf/plugins/lib/
+COPY plugins/downloadEventPlugin/lib/* /artifactory_extra_conf/plugins/lib/
+COPY plugins/downloadEventPlugin/downloadEventPlugin.groovy /artifactory_extra_conf/plugins/
 
 
 RUN chmod 775 /init.sh
 
+ 
 ENTRYPOINT ["/init.sh"]
 
