@@ -19,11 +19,23 @@ parameters:
 - description: "The image name:tag"
   name: "IMAGE"
   required: true
-- description: "filename for the catalog tar.gz file the job will create"
-  name: "FILENAME"
+- description: "curl command credentials for Artifactory (ex: admin:password)"
+  name: "EAR_CURL_CREDS"
   required: true
-- description: "script to invoke after file is created. can be used to push to some repo"
-  name: "POST_CATALOG_CREATION_SCRIPT"
+- description: "artifactory api URL (ex: http://host:port/artifactory/api)"
+  name: "EAR_API_URL"
+  required: true
+- description: "docker repo in Artifactory from the the catalog tar.gz should be constructed"
+  name: "EAR_DOCKER_REPO"
+  required: true
+- description: "Artifactory URL to curl for downloading the FROM tar.gz package manifest catalog (Ex: http://host:port/artifactory/operator-dev-catalog-manifests/file.tar.gz)"
+  name: "FROM_CATALOG_EAR_URL"
+  required: true
+- description: "API URL for the Operator Catalog Tools API service for pruning a tar.gz Catalog (Ex: http://host:port/pruneCatalog)"
+  name: CATALOG_UTILS_API_URL
+  required: true
+- description: "Artifactory URL to curl for uploading the TO tar.gz package manifest catalog (Ex: http://host:port/artifactory/operator-prod-catalog-manifests/file.tar.gz)"
+  name: TO_CATALOG_EAR_URL
   required: true
 objects:
 - apiVersion: v1
@@ -70,10 +82,18 @@ objects:
           - name: HTTP_PROXY
           - name: HTTPS_PROXY
           - name: NO_PROXY
-          - name: FILENAME
-            value: ${FILENAME}
-          - name: POST_CATALOG_CREATION_SCRIPT
-            value: ${POST_CATALOG_CREATION_SCRIPT}
+          - name: EAR_CURL_CREDS
+            value: ${EAR_CURL_CREDS}
+          - name: EAR_API_URL
+            value: ${EAR_API_URL}
+          - name: EAR_DOCKER_REPO
+            value: ${EAR_DOCKER_REPO}
+          - name: FROM_CATALOG_EAR_URL
+            value: ${FROM_CATALOG_EAR_URL}
+          - name: CATALOG_UTILS_API_URL
+            value: ${CATALOG_UTILS_API_URL}
+          - name: TO_CATALOG_EAR_URL
+            value: ${TO_CATALOG_EAR_URL}
           image: ${IMAGE}
           imagePullPolicy: Always
           name: ${NAME}
