@@ -1,4 +1,4 @@
-package com.ocp4.artifactory.events;
+package com.ocp4.operators.pipeline;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

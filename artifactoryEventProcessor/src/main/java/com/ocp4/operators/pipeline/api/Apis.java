@@ -1,4 +1,4 @@
-package com.ocp4.artifactory.events.api;
+package com.ocp4.operators.pipeline.api;
 
 import java.io.IOException;
 import java.util.Map;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jayway.jsonpath.JsonPath;
-import com.ocp4.artifactory.events.jenkins.JenkinsService;
+import com.ocp4.operators.pipeline.jenkins.JenkinsService;
 
 @RestController
 public class Apis {

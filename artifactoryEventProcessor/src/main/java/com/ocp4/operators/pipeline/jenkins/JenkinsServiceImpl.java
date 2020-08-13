@@ -1,4 +1,4 @@
-package com.ocp4.artifactory.events.jenkins;
+package com.ocp4.operators.pipeline.jenkins;
 
 import java.io.IOException;
 
