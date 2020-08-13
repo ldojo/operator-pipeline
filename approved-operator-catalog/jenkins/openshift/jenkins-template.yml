@@ -1,0 +1,124 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: jenkins
+  annotations:
+    description: "A template to instantiate Jenkins for running the Operator Catalog Creation Job"
+    tags: "jenkins,operators,catalog"
+labels:
+  app: jenkins
+parameters:
+- description: ""
+  name: NAME
+  required: true
+  value: "jenkins"
+- description: "Random 4 char string to append to NAME"
+  name: RANDOM
+  generate: expression
+  from: "[a-zA-Z0-9]{5}"
+- description: "The image name:tag"
+  name: "IMAGE"
+  required: true
+- description: "curl command credentials for Artifactory (ex: admin:password)"
+  name: "EAR_CURL_CREDS"
+  required: true
+- description: "artifactory api URL (ex: http://host:port/artifactory/api)"
+  name: "EAR_API_URL"
+  required: true
+- description: "docker repo in Artifactory from the the catalog tar.gz should be constructed"
+  name: "EAR_DOCKER_REPO"
+  required: true
+- description: "Artifactory URL to curl for downloading the FROM tar.gz package manifest catalog (Ex: http://host:port/artifactory/operator-dev-catalog-manifests/file.tar.gz)"
+  name: "FROM_CATALOG_EAR_URL"
+  required: true
+- description: "API URL for the Operator Catalog Tools API service for pruning a tar.gz Catalog (Ex: http://host:port/pruneCatalog)"
+  name: CATALOG_UTILS_API_URL
+  required: true
+- description: "Artifactory URL to curl for uploading the TO tar.gz package manifest catalog (Ex: http://host:port/artifactory/operator-prod-catalog-manifests/file.tar.gz)"
+  name: TO_CATALOG_EAR_URL
+  required: true
+objects:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: ${NAME}
+  spec:
+    ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: ${NAME}
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: ${NAME}
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: ${NAME}
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        labels:
+          app: ${NAME}
+        name: ${NAME}
+      spec:
+        volumes:
+          - name: jenkins-volume-1
+            emptyDir: {}
+        containers:
+        - env:
+          - name: HTTP_PROXY
+          - name: HTTPS_PROXY
+          - name: NO_PROXY
+          - name: EAR_CURL_CREDS
+            value: ${EAR_CURL_CREDS}
+          - name: EAR_API_URL
+            value: ${EAR_API_URL}
+          - name: EAR_DOCKER_REPO
+            value: ${EAR_DOCKER_REPO}
+          - name: FROM_CATALOG_EAR_URL
+            value: ${FROM_CATALOG_EAR_URL}
+          - name: CATALOG_UTILS_API_URL
+            value: ${CATALOG_UTILS_API_URL}
+          - name: TO_CATALOG_EAR_URL
+            value: ${TO_CATALOG_EAR_URL}
+          image: ${IMAGE}
+          imagePullPolicy: Always
+          name: ${NAME}
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          resources:
+            requests:
+#              cpu: 100m
+              memory: 2Gi
+          volumeMounts:
+            - name: jenkins-volume-1
+              mountPath: /var/jenkins_home
+        restartPolicy: Always
+        terminationGracePeriodSeconds: 30
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    name: ${NAME}
+  spec:
+    port:
+      targetPort: http
+    to:
+      kind: Service
+      name: ${NAME}
+      weight: 100
+    wildcardPolicy: None
