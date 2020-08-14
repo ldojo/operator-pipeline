@@ -38,7 +38,7 @@ public class ArtifactoryServiceImpl implements ArtifactoryService{
 				put("scanStatus", status.toString());
 			}
 		});
-		Logger.getLogger(this.getClass().getName()).info("Updating Status to " + status + " for " + url);
+		Logger.getLogger(this.getClass().getName()).info("Updating artifactory scanStatus property to " + status + " for " + url);
 		Request.Patch(url)
 		.addHeader(HttpHeaders.AUTHORIZATION,
 				"Basic " + new String(Base64.encodeBase64((artifactoryUser + ":" + artifactoryPassword).getBytes())))
