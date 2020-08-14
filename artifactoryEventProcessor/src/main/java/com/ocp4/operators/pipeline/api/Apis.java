@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jayway.jsonpath.JsonPath;
+import com.ocp4.operators.pipeline.artifactory.ArtifactoryService;
 import com.ocp4.operators.pipeline.jenkins.JenkinsService;
 
 @RestController
@@ -22,9 +23,9 @@ public class Apis {
 	@Autowired
 	private JenkinsService jenkinsService;
 
-	@Value("${artifactory.host}")
-	private String artifactoryHost;
-
+	@Autowired
+	private ArtifactoryService artifactoryService;
+	
 	@GetMapping("/hello")
 	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
 		return String.format("Hello %s!", name);
@@ -34,7 +35,8 @@ public class Apis {
 	public void downloadEvent(@RequestBody String json) throws ClientProtocolException, IOException {
 		Logger.getLogger(this.getClass().getName()).info("consumed " + json);
 		String imagePath = JsonPath.parse(json).read("$['repoPath']['path']");
-
-		jenkinsService.invokeScanJob(artifactoryHost, imagePath);
+		String repoKey = JsonPath.parse(json).read("$['repoPath']['repoKey']");
+		artifactoryService.setImageStatus(imagePath, repoKey, ArtifactoryService.ImageStatus.UNSCANNED);
+		//jenkinsService.invokeScanJob(artifactoryHost, imagePath);
 	}
 }
