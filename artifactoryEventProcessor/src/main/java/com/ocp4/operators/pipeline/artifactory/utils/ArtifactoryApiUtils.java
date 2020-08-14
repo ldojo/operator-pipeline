@@ -6,9 +6,9 @@ public class ArtifactoryApiUtils {
 
 	public static String createSetStatusPropertiesURL(Optional<String> artifactoryHost,  Optional<String> repoKey,Optional<String> artifactoryPath,
 			Optional<String> status) {
-		
-		return stripEndSlash(artifactoryHost.get()) + "/artifactory/api/storage/" + stripBeginEndSlashes(repoKey.get()) 
-		+ "/" + stripBeginEndSlashes(artifactoryPath.get()) + "?properties=status=" + status.get() ;
+		String result = stripEndSlash(artifactoryHost.get()) + "/artifactory/api/metadata/" + stripBeginEndSlashes(repoKey.get()) 
+		+ "/" + stripBeginEndSlashes(artifactoryPath.get())  ;
+		return result ;
 	}
 
 	public static String stripBeginEndSlashes(String artifactoryPath) {

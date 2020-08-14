@@ -34,9 +34,9 @@ public class Apis {
 	@PostMapping("/downloadEvent")
 	public void downloadEvent(@RequestBody String json) throws ClientProtocolException, IOException {
 		Logger.getLogger(this.getClass().getName()).info("consumed " + json);
-		String imagePath = JsonPath.parse(json).read("$['repoPath']['path']");
-		String repoKey = JsonPath.parse(json).read("$['repoPath']['repoKey']");
-		artifactoryService.setImageStatus(imagePath, repoKey, ArtifactoryService.ImageStatus.UNSCANNED);
+		String imagePath = JsonPath.parse(json).read("$['request']['repoPath']['path']");
+		String repoKey = JsonPath.parse(json).read("$['request']['repoPath']['repoKey']");
+		artifactoryService.setImageStatus( repoKey + "-cache",imagePath, ArtifactoryService.ImageStatus.UNSCANNED);
 		//jenkinsService.invokeScanJob(artifactoryHost, imagePath);
 	}
 }
