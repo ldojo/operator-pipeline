@@ -19,7 +19,7 @@ public class ArtifactoryServiceImpl implements ArtifactoryService{
 	private String artifactoryHost;
 	@Value("${artifactory.user}")
 	private String artifactoryUser;
-	@Value("$artifactory.password}")
+	@Value("${artifactory.password}")
 	private String artifactoryPassword;
 	
 	
