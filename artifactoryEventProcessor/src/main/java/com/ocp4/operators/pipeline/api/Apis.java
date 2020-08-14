@@ -33,7 +33,7 @@ public class Apis {
 
 	@PostMapping("/downloadEvent")
 	public void downloadEvent(@RequestBody String json) throws ClientProtocolException, IOException {
-		Logger.getLogger(this.getClass().getName()).info("consumed " + json);
+		Logger.getLogger(this.getClass().getName()).info("consumed artifactory download even: " + json);
 		String imagePath = JsonPath.parse(json).read("$['request']['repoPath']['path']");
 		String repoKey = JsonPath.parse(json).read("$['request']['repoPath']['repoKey']");
 		artifactoryService.setImageStatus( repoKey + "-cache",imagePath, ArtifactoryService.ImageStatus.UNSCANNED);
