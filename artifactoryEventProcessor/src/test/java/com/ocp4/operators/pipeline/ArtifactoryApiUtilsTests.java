@@ -19,9 +19,9 @@ public class ArtifactoryApiUtilsTests {
 
 		String host = "http://host:8080/", repoKey = "operator-dev/", path = "path/to/image/";
 		String result = ArtifactoryApiUtils.createSetStatusPropertiesURL(Optional.of(host), Optional.of(repoKey),
-				Optional.of(path), Optional.of("UNSCANNED"));
+				Optional.of(path));
 		assertEquals(result,
-				"http://host:8080/artifactory/api/storage/operator-dev/path/to/image?properties=status=UNSCANNED");
+				"http://host:8080/artifactory/api/metadata/operator-dev/path/to/image");
 
 		// test with some slashes added/removed to the arguments. result should be the
 		// same
@@ -29,20 +29,20 @@ public class ArtifactoryApiUtilsTests {
 		repoKey = "/operator-dev";
 		path = "/path/to/image/";
 		result = ArtifactoryApiUtils.createSetStatusPropertiesURL(Optional.of(host), Optional.of(repoKey),
-				Optional.of(path), Optional.of("UNSCANNED"));
+				Optional.of(path));
 		assertEquals(result,
-				"http://host:8080/artifactory/api/storage/operator-dev/path/to/image?properties=status=UNSCANNED");
+				"http://host:8080/artifactory/api/metadata/operator-dev/path/to/image");
 
 		// calling the method with nulls should throw NPE
 		try {
-			ArtifactoryApiUtils.createSetStatusPropertiesURL(null, Optional.of("test"), null, Optional.of("test"));
+			ArtifactoryApiUtils.createSetStatusPropertiesURL(null, Optional.of("test"), null);
 			fail("should have thrown an NPE");
 		} catch (NullPointerException e) {
 
 		}
 		
 		try {
-			ArtifactoryApiUtils.createSetStatusPropertiesURL(Optional.ofNullable(null), Optional.of("test"), Optional.of("test"), Optional.of("test"));
+			ArtifactoryApiUtils.createSetStatusPropertiesURL(Optional.ofNullable(null), Optional.of("test"), Optional.of("test"));
 			fail("should have thrown an NPE");
 		} catch (NoSuchElementException e) {
 

@@ -31,7 +31,7 @@ public class ArtifactoryServiceImpl implements ArtifactoryService{
 	@SuppressWarnings("serial")
 	@Override
 	public void setImageStatus(String repoKey,String artifactoryPath,  ArtifactoryService.ImageStatus status) throws ClientProtocolException, IOException {
-		String url = ArtifactoryApiUtils.createSetStatusPropertiesURL(Optional.of(artifactoryHost), Optional.of(repoKey),Optional.of(artifactoryPath),  Optional.of(status.toString()));
+		String url = ArtifactoryApiUtils.createSetStatusPropertiesURL(Optional.of(artifactoryHost), Optional.of(repoKey),Optional.of(artifactoryPath));
 		Map<String,Map<String,String>> props = new HashMap<String,Map<String,String>>();
 		props.put("props", new HashMap<String,String>(){
 			{
