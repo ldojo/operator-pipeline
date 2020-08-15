@@ -38,7 +38,8 @@
                 }
             }
                 echo &quot;scanning image ${params.imageUrl}&quot;
-            }
+                sleep 30
+   	   }
         }
     }
 }
