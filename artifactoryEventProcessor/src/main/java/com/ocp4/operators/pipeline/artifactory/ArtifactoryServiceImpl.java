@@ -2,6 +2,7 @@ package com.ocp4.operators.pipeline.artifactory;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.net.HttpHeaders;
+import com.jayway.jsonpath.JsonPath;
 import com.ocp4.operators.pipeline.artifactory.utils.ArtifactoryApiUtils;
 
 @Service
@@ -44,6 +46,19 @@ public class ArtifactoryServiceImpl implements ArtifactoryService{
 				"Basic " + new String(Base64.encodeBase64((artifactoryUser + ":" + artifactoryPassword).getBytes())))
 		.bodyString(new ObjectMapper().writeValueAsString(props), ContentType.APPLICATION_JSON)
 		.execute().returnContent();
+	}
+
+
+	@Override
+	public Optional<List<String>> fetchUnscannedImages() throws ClientProtocolException, IOException {
+		String url = ArtifactoryApiUtils.createUnscannedImagesSearchUrl(artifactoryHost);
+		String responseJson = Request.Get(url)
+		.addHeader(HttpHeaders.AUTHORIZATION,
+				"Basic " + new String(Base64.encodeBase64((artifactoryUser + ":" + artifactoryPassword).getBytes())))
+		.execute().returnContent().asString();
+		List<String> manifestUris = ArtifactoryApiUtils.parseManifestUrisFromApiResponseJson(responseJson);
+
+		return Optional.of(manifestUris);
 	}
 
 }

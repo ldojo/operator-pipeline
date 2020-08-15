@@ -1,6 +1,7 @@
 package com.ocp4.operators.pipeline.api;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -48,6 +49,15 @@ public class Apis {
 			+ ". The expected payload is the Json representation of https://repo.jfrog.org/artifactory/oss-releases-local/org/artifactory/artifactory-papi/4.14.1/artifactory-papi-4.14.1-javadoc.jar!/org/artifactory/request/Request.html that Artifactory sends";
 			log.severe(err);
 			return ResponseEntity.badRequest().body(err);
+		}
+	}
+	
+	@GetMapping("/unscannedImages")
+	public ResponseEntity<?> unscannedImages(){
+		try {
+			return ResponseEntity.of( artifactoryService.fetchUnscannedImages());
+		} catch (IOException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 }
