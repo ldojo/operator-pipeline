@@ -6,6 +6,6 @@ import org.apache.http.client.ClientProtocolException;
 
 public interface JenkinsService {
 
-	public void invokeScanJob(String artifactoryUrl, String imagePath) throws ClientProtocolException, IOException;
+	public void invokeScanJob(String imageUrl) throws ClientProtocolException, IOException;
 	
 }

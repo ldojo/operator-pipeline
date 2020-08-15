@@ -1,6 +1,7 @@
 package com.ocp4.operators.pipeline.artifactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,8 @@ import org.apache.http.entity.ContentType;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.net.HttpHeaders;
 import com.ocp4.operators.pipeline.artifactory.utils.ArtifactoryApiUtils;
@@ -31,6 +34,37 @@ public class ArtifactoryServiceImpl implements ArtifactoryService{
 	@Override
 	public void setImageStatus(String repoKey,String artifactoryPath,  ArtifactoryService.ImageStatus status) throws ClientProtocolException, IOException {
 		String url = ArtifactoryApiUtils.createSetStatusPropertiesURL(Optional.of(artifactoryHost), Optional.of(repoKey),Optional.of(artifactoryPath));
+		setScanStatus(url, status);
+	}
+
+
+	@Override
+	public Optional<List<String>> fetchUnscannedImages() throws ClientProtocolException, IOException {
+		Optional<List<String>> manifestUris = fetchUnscannedManifestJsonUris();
+		List<String> results = new ArrayList<String>();
+		if(manifestUris.isPresent()) {
+			for(String s : manifestUris.get()) {
+				results.add(ArtifactoryApiUtils.convertArtifactoryManifestJsonURI2Image(s));
+			}
+		}
+		return Optional.of(results);
+	}
+	
+	@Override
+	public Optional<List<String>> fetchUnscannedManifestJsonUris() throws ClientProtocolException, IOException{
+		String url = ArtifactoryApiUtils.createUnscannedImagesSearchUrl(artifactoryHost);
+		String responseJson = Request.Get(url)
+		.addHeader(HttpHeaders.AUTHORIZATION,
+				"Basic " + new String(Base64.encodeBase64((artifactoryUser + ":" + artifactoryPassword).getBytes())))
+		.execute().returnContent().asString();
+		List<String> manifestUris = ArtifactoryApiUtils.parseManifestUrisFromApiResponseJson(responseJson);
+		return Optional.of(manifestUris);
+	}
+
+
+	@SuppressWarnings("serial")
+	@Override
+	public void setScanStatus(String url, ImageStatus status) throws ClientProtocolException, IOException {
 		Map<String,Map<String,String>> props = new HashMap<String,Map<String,String>>();
 		props.put("props", new HashMap<String,String>(){
 			{
@@ -42,20 +76,7 @@ public class ArtifactoryServiceImpl implements ArtifactoryService{
 		.addHeader(HttpHeaders.AUTHORIZATION,
 				"Basic " + new String(Base64.encodeBase64((artifactoryUser + ":" + artifactoryPassword).getBytes())))
 		.bodyString(new ObjectMapper().writeValueAsString(props), ContentType.APPLICATION_JSON)
-		.execute().returnContent();
-	}
-
-
-	@Override
-	public Optional<List<String>> fetchUnscannedImages() throws ClientProtocolException, IOException {
-		String url = ArtifactoryApiUtils.createUnscannedImagesSearchUrl(artifactoryHost);
-		String responseJson = Request.Get(url)
-		.addHeader(HttpHeaders.AUTHORIZATION,
-				"Basic " + new String(Base64.encodeBase64((artifactoryUser + ":" + artifactoryPassword).getBytes())))
-		.execute().returnContent().asString();
-		List<String> manifestUris = ArtifactoryApiUtils.parseManifestUrisFromApiResponseJson(responseJson);
-
-		return Optional.of(manifestUris);
+		.execute().returnContent();		
 	}
 
 }
