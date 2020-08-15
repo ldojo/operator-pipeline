@@ -3,9 +3,7 @@ package com.ocp4.operators.pipeline.artifactory;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-
 import org.apache.http.client.ClientProtocolException;
-import org.springframework.http.ResponseEntity;
 
 public interface ArtifactoryService {
 	/**
