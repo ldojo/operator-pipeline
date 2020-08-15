@@ -20,6 +20,8 @@ import com.jayway.jsonpath.JsonPath;
 import com.ocp4.operators.pipeline.artifactory.ArtifactoryService;
 import com.ocp4.operators.pipeline.jenkins.JenkinsService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class Apis {
 
@@ -35,6 +37,7 @@ public class Apis {
 		return String.format("Hello %s!", name);
 	}
 
+	@ApiOperation(produces = "application/json", value="consumes an Artifactory https://repo.jfrog.org/artifactory/oss-releases-local/org/artifactory/artifactory-papi/4.14.1/artifactory-papi-4.14.1-javadoc.jar!/org/artifactory/request/Request.html json represenation, after an image pull even in Artifactory")
 	@PostMapping("/downloadEvent")
 	public ResponseEntity<String> downloadEvent(@RequestBody String json) {
 		log.info("consumed artifactory download event: " + json);
@@ -52,7 +55,9 @@ public class Apis {
 		}
 	}
 	
+	@ApiOperation(produces = "application/json", value="returns a list of images in artifactory remote repo(s) that have a property scanStatus=UNSCANNED")
 	@GetMapping("/unscannedImages")
+	
 	public ResponseEntity<?> unscannedImages(){
 		try {
 			return ResponseEntity.of( artifactoryService.fetchUnscannedImages());
