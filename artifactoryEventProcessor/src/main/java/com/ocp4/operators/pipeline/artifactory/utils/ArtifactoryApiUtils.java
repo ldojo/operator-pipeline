@@ -45,15 +45,12 @@ public class ArtifactoryApiUtils {
 		return stripEndSlash(artifactoryHost) + "/artifactory/api/search/prop?scanStatus=UNSCANNED";
 	}
 
-	public static List<String> parseManifestUrisFromApiResponseJson(String responseJson) throws MalformedURLException{
+	public static List<String> parseManifestUrisFromApiResponseJson(String responseJson) {
 		List<String> manifestUris = JsonPath.parse(responseJson).read("$['results'][*]['uri']");
 		manifestUris = manifestUris.stream().filter(s -> s.endsWith("manifest.json"))
 				.collect(Collectors.toList());
-		List<String> results = new ArrayList<String>();
-		for(String manifestUrl : manifestUris) {
-			results.add(convertArtifactoryManifestJsonURI2Image(manifestUrl));
-		}
-		return results;
+
+		return manifestUris;
 	}
 	
 	public static String convertArtifactoryManifestJsonURI2Image(String manifestJsonUri) throws MalformedURLException {

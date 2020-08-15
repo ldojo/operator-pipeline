@@ -26,8 +26,8 @@ public class JenkinsServiceImpl implements JenkinsService {
 	String jenkinsPassword;
 
 	@Override
-	public void invokeScanJob(String artifactoryUrl, String imagePath) throws ClientProtocolException, IOException {
-		Request.Post(jenkinsUrl + "job/" + imageScanJobName + "/buildWithParameters?imageUrl=" + artifactoryUrl + "/" + imagePath)
+	public void invokeScanJob(String imageUrl) throws ClientProtocolException, IOException {
+		Request.Post(jenkinsUrl + "job/" + imageScanJobName + "/buildWithParameters?imageUrl=" + imageUrl)
 		.addHeader(HttpHeaders.AUTHORIZATION,
 				"Basic " + new String(Base64.encodeBase64((jenkinsUser + ":" + jenkinsPassword).getBytes())))
 		.execute().returnContent();

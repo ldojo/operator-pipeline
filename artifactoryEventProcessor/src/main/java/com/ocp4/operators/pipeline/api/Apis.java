@@ -1,6 +1,7 @@
 package com.ocp4.operators.pipeline.api;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jayway.jsonpath.JsonPath;
 import com.ocp4.operators.pipeline.artifactory.ArtifactoryService;
+import com.ocp4.operators.pipeline.artifactory.utils.ArtifactoryApiUtils;
 import com.ocp4.operators.pipeline.jenkins.JenkinsService;
 
 import io.swagger.annotations.ApiOperation;
@@ -64,5 +66,36 @@ public class Apis {
 		} catch (IOException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
+	}
+	
+	@ApiOperation(produces = "application/json", value="finds all unscanned images in artifactory remote operator image repos, and invokes jenkins scan jobs for them")
+	@GetMapping("/scanUnscannedImages")
+	public ResponseEntity<?> scanUnscannedImages(){
+		List<String> scannedImages = new ArrayList<String>();
+		Optional<List<String>> unscannedManifestJsonsUris = Optional.empty();
+		try {
+			unscannedManifestJsonsUris = artifactoryService.fetchUnscannedManifestJsonUris();
+		} catch (IOException e) {
+			log.severe("could not fetch unscanned Images from artifactory to scan. Exception: " + e.getMessage());
+		}
+		
+		if(unscannedManifestJsonsUris.isPresent()) {
+			for (String manifestJsonUri : unscannedManifestJsonsUris.get()) {
+				log.info("invoking jenkins scan for " + manifestJsonUri);
+				try {
+					artifactoryService.setScanStatus(manifestJsonUri.replace("/storage/", "/metadata/"), ArtifactoryService.ImageStatus.PROCESSING);
+				} catch (IOException e1) {
+					log.severe("could not set Artifactory Property scanStatus for " + manifestJsonUri + ". Exception: " + e1.getMessage());
+				}
+				try {
+					String image = ArtifactoryApiUtils.convertArtifactoryManifestJsonURI2Image(manifestJsonUri);
+					jenkinsService.invokeScanJob(image);
+					scannedImages.add(image);
+				} catch (IOException e) {
+					log.severe("could not invoke jenkins scan job for " + manifestJsonUri + ". Exception: " + e.getMessage());
+				}
+			}
+		}
+		return ResponseEntity.ok(scannedImages);
 	}
 }
