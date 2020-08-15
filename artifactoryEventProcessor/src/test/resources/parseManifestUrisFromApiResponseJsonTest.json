@@ -1,0 +1,79 @@
+{
+  "results": [
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-access-redhat-com-remote-cache/amq7/amq-streams-cluster-operator/1.1.0/list.manifest.json"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-access-redhat-com-remote-cache/amq7/amq-streams-cluster-operator/sha256__d094fbd93afa5994f85ccb0bc6b7a3387024e94a6c42109cb2e7f36f3eddbc62/manifest.json"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-access-redhat-com-remote-cache/amq7/amq-streams-cluster-operator/sha256__d094fbd93afa5994f85ccb0bc6b7a3387024e94a6c42109cb2e7f36f3eddbc62/sha256__c9e071c10c1a071024652201421de3f1de3a35af30304e490fff24f4ffc5a379"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/coreos/prometheus-operator/sha256__0e92dd9b5789c4b13d53e1319d0a6375bcca4caaf0d698af61198061222a576d/manifest.json"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/coreos/prometheus-operator/sha256__3daa69a8c6c2f1d35dcf1fe48a7cd8b230e55f5229a1ded438f687debade5bcf/manifest.json"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/coreos/prometheus-operator/sha256__5037b4e90dbb03ebdefaa547ddf6a1f748c8eeebeedf6b9d9f0913ad662b5731/manifest.json"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/coreos/prometheus-operator/sha256__933cd5bf380cf7db330808ff54f75f26fda0b1501021d499a1766b7d16224188/manifest.json"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/coreos/prometheus-operator/sha256__ed3ec0597c2d5b7102a7f62c661a23d8e4b34d910693fc23fd40bfb1d9404dcf/manifest.json"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/coreos/prometheus-operator/v0.14.0/manifest.json"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/coreos/prometheus-operator/v0.15.0/manifest.json"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/coreos/prometheus-operator/v0.22.2/manifest.json"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/coreos/prometheus-operator/v0.22.2/sha256__b17113a231abb7dcebc8450a6ae287d22dae71080ab59736baaeba1ca225daea"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/coreos/prometheus-operator/v0.22.2/sha256__b91f96ddd9e3d9eba3f591b3d0aec7cf584597bbb74e437338b3a2d56716dd35"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/coreos/prometheus-operator/v0.22.2/sha256__f70adabe43c0cccffbae8785406d490e26855b8748fc982d14bc2b20c778b929"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/coreos/prometheus-operator/v0.27.0/manifest.json"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/coreos/prometheus-operator/v0.32.0/manifest.json"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/opstree/redis-operator/latest/manifest.json"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/opstree/redis-operator/latest/sha256__11157837554372b6f48795ba734a73bcee5925914ccf0573cce6d06297b5330d"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/opstree/redis-operator/latest/sha256__37aeac676355aac0098ca243143c866c7ef90ddd7e98ee076b3e361877279ab3"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/opstree/redis-operator/latest/sha256__526a64b80f4faa5e64cee73c56f27211860fec69d593ca7f6bb8fbd5c682f664"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/opstree/redis-operator/latest/sha256__634c30421be5028233b7390f61881ea23b3c79db11bca1bf0ccb445a1e7c3e2c"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/opstree/redis-operator/latest/sha256__6f685778cc2f71f009ad4e2b7585077ac6af36249159ec6f5294fccf094b213d"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/opstree/redis-operator/latest/sha256__93b9f0b38df45ea9621632dcd5d63b039c5b8d35c9b3bd5b38e245256bc4c842"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/opstree/redis-operator/v0.0.1/manifest.json"
+    },
+    {
+      "uri": "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/opstree/redis-operator/v0.0.1/sha256__a85cb623894dbd94216dcf21255fb71e11281127d1c67c80f6c543a15ef03f9e"
+    }
+  ]
+}

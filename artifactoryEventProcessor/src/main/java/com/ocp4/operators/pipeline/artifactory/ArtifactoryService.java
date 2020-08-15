@@ -1,7 +1,8 @@
 package com.ocp4.operators.pipeline.artifactory;
 
 import java.io.IOException;
-
+import java.util.List;
+import java.util.Optional;
 import org.apache.http.client.ClientProtocolException;
 
 public interface ArtifactoryService {
@@ -16,4 +17,5 @@ public interface ArtifactoryService {
 		UNSCANNED
 	}
 	public void setImageStatus(String artifactoryPath, String repoKey, ImageStatus status) throws ClientProtocolException, IOException;
+	public Optional<List<String>> fetchUnscannedImages() throws ClientProtocolException, IOException;
 }
