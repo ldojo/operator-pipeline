@@ -5,8 +5,8 @@ LABEL maintainer="Lev Shulman <lshulman@redhat.com>"
 
 RUN mkdir /app
 
-COPY . /app/
+COPY target/download-event-processor-0.0.1-SNAPSHOT.jar /app/
  
 EXPOSE 8080
 WORKDIR /app/
-CMD ./mvnw spring-boot:run
+CMD java -jar download-event-processor-0.0.1-SNAPSHOT.jar
