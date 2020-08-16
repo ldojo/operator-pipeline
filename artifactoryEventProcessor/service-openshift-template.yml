@@ -1,0 +1,84 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: operator-pipeline-api
+  annotations:
+    description: "A template to instantiate the operator-pipeline-api service"
+    tags: "operator-pipeline-api,operators"
+labels:
+  app: operator-pipeline-api
+parameters:
+- description: ""
+  name: NAME
+  required: true
+  value: "operator-pipeline-api"
+- description: "Random 4 char string to append to NAME"
+  name: RANDOM
+  generate: expression
+  from: "[a-zA-Z0-9]{5}"
+- description: "The image tag for Artifactory"
+  name: "IMAGE"
+  required: true
+objects:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: ${NAME}
+  spec:
+    ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: ${NAME}
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: ${NAME}
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: ${NAME}
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        labels:
+          app: ${NAME}
+        name: ${NAME}
+      spec:
+        containers:
+        - env:
+          - name: HTTP_PROXY
+          - name: HTTPS_PROXY
+          - name: NO_PROXY
+          image: ${IMAGE}
+          imagePullPolicy: Always
+          name: ${NAME}
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+        restartPolicy: Always
+        terminationGracePeriodSeconds: 30
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    name: ${NAME}
+  spec:
+    port:
+      targetPort: http
+    to:
+      kind: Service
+      name: ${NAME}
+      weight: 100
+    wildcardPolicy: None
