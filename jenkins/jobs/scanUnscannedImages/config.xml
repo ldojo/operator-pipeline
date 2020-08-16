@@ -28,7 +28,7 @@
     stages {
         stage(&apos;Scan Unscanned Images&apos;) {
             steps {
-                sh &apos;curl -X GET &quot;http://ec2-52-14-47-127.us-east-2.compute.amazonaws.com:8080/scanUnscannedImages&quot;&apos;
+                sh &apos;curl -X GET &quot;$SCAN_UNSCANNED_IMGS_API_URL&quot;&apos;
             }
         }
     }
