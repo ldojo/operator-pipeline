@@ -19,6 +19,10 @@ parameters:
 - description: "The image tag for Artifactory"
   name: "IMAGE"
   required: true
+- description: "The API endpoint that Jenkins with curl to invoke scanning of unscanned Images"
+  name: "SCAN_UNSCANNED_IMGS_API_URL"
+  required: true
+  value: "http://operator-pipeline-api:8080/scanUnscannedImages"
 objects:
 - apiVersion: v1
   kind: Service
@@ -64,6 +68,8 @@ objects:
           - name: HTTP_PROXY
           - name: HTTPS_PROXY
           - name: NO_PROXY
+          - name: SCAN_UNSCANNED_IMGS_API_URL
+            value: ${SCAN_UNSCANNED_IMGS_API_URL}
           image: ${IMAGE}
           imagePullPolicy: Always
           name: ${NAME}
