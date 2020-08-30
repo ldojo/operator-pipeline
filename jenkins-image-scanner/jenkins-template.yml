@@ -11,7 +11,7 @@ parameters:
 - description: ""
   name: NAME
   required: true
-  value: "jenkins"
+  value: "image-scan-pipeline"
 - description: "Random 4 char string to append to NAME"
   name: RANDOM
   generate: expression
@@ -66,9 +66,9 @@ objects:
           app: ${NAME}
         name: ${NAME}
       spec:
-        volumes:
-          - name: jenkins-volume-1
-            emptyDir: {}
+#        volumes:
+#          - name: jenkins-volume-1
+#            emptyDir: {}
         containers:
         - env:
           - name: http_proxy
@@ -88,9 +88,9 @@ objects:
             requests:
 #              cpu: 100m
               memory: 2Gi
-          volumeMounts:
-            - name: jenkins-volume-1
-              mountPath: /var/jenkins_home
+#          volumeMounts:
+#            - name: jenkins-volume-1
+#              mountPath: /var/jenkins_home
         restartPolicy: Always
         terminationGracePeriodSeconds: 30
 - apiVersion: route.openshift.io/v1
