@@ -19,6 +19,12 @@ parameters:
 - description: "The image tag for Artifactory"
   name: "IMAGE"
   required: true
+- description: "HTTP PROXY"
+  name: "HTTP_PROXY"
+  required: false
+- description: "HTTPS PROXY"
+  name: "HTTPS_PROXY"
+  required: false
 objects:
 - apiVersion: v1
   kind: Service
@@ -61,9 +67,10 @@ objects:
             emptyDir: {}
         containers:
         - env:
-          - name: HTTP_PROXY
-          - name: HTTPS_PROXY
-          - name: NO_PROXY
+          - name: http_proxy
+            value: ${HTTP_PROXY}
+          - name: https_proxy
+            value: ${HTTPS_PROXY}
           image: ${IMAGE}
           imagePullPolicy: Always
           name: ${NAME}
