@@ -1,0 +1,107 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: jenkins
+  annotations:
+    description: "A template to instantiate Jenkins for the Operator Automation Pipeline"
+    tags: "jenkins,operators"
+labels:
+  app: jenkins
+parameters:
+- description: ""
+  name: NAME
+  required: true
+  value: "jenkins"
+- description: "Random 4 char string to append to NAME"
+  name: RANDOM
+  generate: expression
+  from: "[a-zA-Z0-9]{5}"
+- description: "The image tag for Artifactory"
+  name: "IMAGE"
+  required: true
+- description: "HTTP PROXY"
+  name: "HTTP_PROXY"
+  required: false
+- description: "HTTPS PROXY"
+  name: "HTTPS_PROXY"
+  required: false
+- description: "The API endpoint that Jenkins with curl to invoke scanning of unscanned Images"
+  name: "SCAN_UNSCANNED_IMGS_API_URL"
+  required: true
+  value: "http://operator-pipeline-api:8080/scanUnscannedImages"
+objects:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: ${NAME}
+  spec:
+    ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: ${NAME}
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: ${NAME}
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: ${NAME}
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        labels:
+          app: ${NAME}
+        name: ${NAME}
+      spec:
+        volumes:
+          - name: jenkins-volume-1
+            emptyDir: {}
+        containers:
+        - env:
+          - name: http_proxy
+            value: ${HTTP_PROXY}
+          - name: https_proxy
+            value: ${HTTPS_PROXY}
+          - name: SCAN_UNSCANNED_IMGS_API_URL
+            value: ${SCAN_UNSCANNED_IMGS_API_URL}
+          image: ${IMAGE}
+          imagePullPolicy: Always
+          name: ${NAME}
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          resources:
+            requests:
+#              cpu: 100m
+              memory: 2Gi
+          volumeMounts:
+            - name: jenkins-volume-1
+              mountPath: /var/jenkins_home
+        restartPolicy: Always
+        terminationGracePeriodSeconds: 30
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    name: ${NAME}
+  spec:
+    port:
+      targetPort: http
+    to:
+      kind: Service
+      name: ${NAME}
+      weight: 100
+    wildcardPolicy: None
