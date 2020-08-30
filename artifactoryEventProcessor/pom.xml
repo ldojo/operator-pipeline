@@ -9,11 +9,11 @@
 		<version>2.3.0.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ocp4.artifactory.events</groupId>
-	<artifactId>download-event-processor</artifactId>
+	<groupId>com.ocp4.operator.pipeline</groupId>
+	<artifactId>operator-pipeline-api-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>download-event-processor</name>
-	<description>Service that consumes download events from an artifactory instance</description>
+	<name>operator-pipeline-api-service</name>
+	<description>General API service for the Operator Automation Pipeline</description>
 	<repositories>
 		<repository>
 			<id>jcenter</id>
