@@ -3,10 +3,7 @@ import org.artifactory.request.Request;
 import org.artifactory.repo.RepoPath;
 
 download {
-    beforeDownload { Request request, RepoPath repoPath ->
-//    afterRemoteDownload { Request request, RepoPath repoPath ->
-          DownloadEventProcessor.printInput(request, repoPath);
+    afterRemoteDownload { Request request, RepoPath repoPath ->
+          DownloadEventProcessor.processRemoteDownload(request, repoPath);
     }
 }
-
-
