@@ -12,12 +12,13 @@ import org.apache.http.client.fluent.Request;
 import org.apache.http.entity.ContentType;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.net.HttpHeaders;
-import com.ocp4.operators.pipeline.artifactory.utils.ArtifactoryApiUtils;
+import com.ocp4.operators.pipeline.artifactory.utils.ArtifactoryUtils;
 
 @Service
 public class ArtifactoryServiceImpl implements ArtifactoryService{
@@ -29,11 +30,13 @@ public class ArtifactoryServiceImpl implements ArtifactoryService{
 	@Value("${artifactory.password}")
 	private String artifactoryPassword;
 	
+	@Value("classpath:imagePromotionTargets.json")
+	Resource imagePromotionTargetsJson;
 	
 	@SuppressWarnings("serial")
 	@Override
 	public void setImageStatus(String repoKey,String artifactoryPath,  ArtifactoryService.ImageStatus status) throws ClientProtocolException, IOException {
-		String url = ArtifactoryApiUtils.createSetStatusPropertiesURL(Optional.of(artifactoryHost), Optional.of(repoKey),Optional.of(artifactoryPath));
+		String url = ArtifactoryUtils.createSetStatusPropertiesURL(Optional.of(artifactoryHost), Optional.of(repoKey),Optional.of(artifactoryPath));
 		setScanStatus(url, status);
 	}
 
@@ -44,7 +47,7 @@ public class ArtifactoryServiceImpl implements ArtifactoryService{
 		List<String> results = new ArrayList<String>();
 		if(manifestUris.isPresent()) {
 			for(String s : manifestUris.get()) {
-				results.add(ArtifactoryApiUtils.convertArtifactoryManifestJsonURI2Image(s));
+				results.add(ArtifactoryUtils.convertArtifactoryManifestJsonURI2Image(s));
 			}
 		}
 		return Optional.of(results);
@@ -52,12 +55,12 @@ public class ArtifactoryServiceImpl implements ArtifactoryService{
 	
 	@Override
 	public Optional<List<String>> fetchUnscannedManifestJsonUris() throws ClientProtocolException, IOException{
-		String url = ArtifactoryApiUtils.createUnscannedImagesSearchUrl(artifactoryHost);
+		String url = ArtifactoryUtils.createUnscannedImagesSearchUrl(artifactoryHost);
 		String responseJson = Request.Get(url)
 		.addHeader(HttpHeaders.AUTHORIZATION,
 				"Basic " + new String(Base64.encodeBase64((artifactoryUser + ":" + artifactoryPassword).getBytes())))
 		.execute().returnContent().asString();
-		List<String> manifestUris = ArtifactoryApiUtils.parseManifestUrisFromApiResponseJson(responseJson);
+		List<String> manifestUris = ArtifactoryUtils.parseManifestUrisFromApiResponseJson(responseJson);
 		return Optional.of(manifestUris);
 	}
 
@@ -77,6 +80,19 @@ public class ArtifactoryServiceImpl implements ArtifactoryService{
 				"Basic " + new String(Base64.encodeBase64((artifactoryUser + ":" + artifactoryPassword).getBytes())))
 		.bodyString(new ObjectMapper().writeValueAsString(props), ContentType.APPLICATION_JSON)
 		.execute().returnContent();		
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> imagePromotionTargets(String sourceImage) {
+		List<String> imagePromotionTargets = new ArrayList<String>();
+		try {
+			imagePromotionTargets = new ObjectMapper().readValue(imagePromotionTargetsJson.getInputStream(), List.class);
+		} catch (IOException e) {
+			throw new RuntimeException("could not read imagePromotionTargets.json file from classpath. Exception: " + e.getMessage());
+		}
+		return ArtifactoryUtils.imagePromotionTarget(sourceImage, imagePromotionTargets);
 	}
 
 }

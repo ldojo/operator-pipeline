@@ -12,7 +12,7 @@ import org.springframework.web.util.UriUtils;
 
 import com.jayway.jsonpath.JsonPath;
 
-public class ArtifactoryApiUtils {
+public class ArtifactoryUtils {
 
 	/**
 	 * a handy method to construct the Artifactory api HTTP PATCH URL to invoke when 
@@ -64,6 +64,24 @@ public class ArtifactoryApiUtils {
 		uriBuilder.setCharAt(uri.lastIndexOf("/"), ':');
 		uri = uriBuilder.toString();
 		return (host + port + uri).replace(":sha256__", "@sha256:");
+	}
+
+	public static List<String> imagePromotionTarget(String sourceImage, List<String> imagePromotionTargets) {
+		String[] tokens = sourceImage.split("/");
+		String hostPort = tokens[0];
+		String repoKey = tokens[1];
+		List<String> results = new ArrayList<String>();
+		for(String promotionTarget : imagePromotionTargets) {
+			String targetImage = hostPort + "/" + promotionTarget + "/" + sourceImage.substring((hostPort + "/" + repoKey + "/").length());
+			if(targetImage.contains(":")) {
+				targetImage = targetImage.substring(0, targetImage.indexOf(":"));
+			}
+			if(targetImage.contains("@")) {
+				targetImage = targetImage.substring(0, targetImage.indexOf("@"));
+			}
+			results.add(targetImage);
+		}
+		return results;
 	}
 
 }

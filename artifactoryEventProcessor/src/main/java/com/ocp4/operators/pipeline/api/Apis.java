@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javax.annotation.Resource;
+import javax.websocket.server.PathParam;
+
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jayway.jsonpath.JsonPath;
 import com.ocp4.operators.pipeline.artifactory.ArtifactoryService;
-import com.ocp4.operators.pipeline.artifactory.utils.ArtifactoryApiUtils;
+import com.ocp4.operators.pipeline.artifactory.utils.ArtifactoryUtils;
 import com.ocp4.operators.pipeline.jenkins.JenkinsService;
 
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +30,8 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 public class Apis {
 
+	
+	
 	private static Logger log = Logger.getLogger(Apis.class.getName());
 	@Autowired
 	private JenkinsService jenkinsService;
@@ -88,7 +93,7 @@ public class Apis {
 					log.severe("could not set Artifactory Property scanStatus for " + manifestJsonUri + ". Exception: " + e1.getMessage());
 				}
 				try {
-					String image = ArtifactoryApiUtils.convertArtifactoryManifestJsonURI2Image(manifestJsonUri);
+					String image = ArtifactoryUtils.convertArtifactoryManifestJsonURI2Image(manifestJsonUri);
 					jenkinsService.invokeScanJob(image);
 					scannedImages.add(image);
 				} catch (IOException e) {
@@ -98,4 +103,11 @@ public class Apis {
 		}
 		return ResponseEntity.ok(scannedImages);
 	}
+	
+	@ApiOperation(produces = "application/json", value="given an image in an artifactory remote proxy repo, produces the target artifactory higher env repo the image should be promoted to")
+	@GetMapping("/imagePromotionTarget/${sourceImage}")
+	public ResponseEntity<?> imagePromotionTarget(@PathParam("sourceImage") String sourceImage){
+		return ResponseEntity.ok(artifactoryService.imagePromotionTargets(sourceImage));
+	}
+	
 }

@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
 
-import com.ocp4.operators.pipeline.artifactory.utils.ArtifactoryApiUtils;
+import com.ocp4.operators.pipeline.artifactory.utils.ArtifactoryUtils;
 
 @SpringBootTest
 
@@ -30,7 +30,7 @@ public class ArtifactoryApiUtilsTests {
 	void testConvertArtifactoryManifestJsonURI2Image() {
 		String testUri = "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-access-redhat-com-remote-cache/amq7/amq-streams-cluster-operator/1.1.0/list.manifest.json";
 		try {
-			String result = ArtifactoryApiUtils.convertArtifactoryManifestJsonURI2Image(testUri);
+			String result = ArtifactoryUtils.convertArtifactoryManifestJsonURI2Image(testUri);
 			assertEquals(result, "ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/operator-access-redhat-com-remote/amq7/amq-streams-cluster-operator:1.1.0");
 		} catch (MalformedURLException e) {
 			fail(e.getMessage());
@@ -38,7 +38,7 @@ public class ArtifactoryApiUtilsTests {
 		
 		testUri = "http://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/opstree/redis-operator/latest/manifest.json";
 		try {
-			String result = ArtifactoryApiUtils.convertArtifactoryManifestJsonURI2Image(testUri);
+			String result = ArtifactoryUtils.convertArtifactoryManifestJsonURI2Image(testUri);
 			assertEquals(result, "ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/operator-quay-io-remote/opstree/redis-operator:latest");
 		} catch (MalformedURLException e) {
 			fail(e.getMessage());
@@ -47,7 +47,7 @@ public class ArtifactoryApiUtilsTests {
 		//test with no port
 		testUri = "https://ec2-3-15-23-148.us-east-2.compute.amazonaws.com/artifactory/api/storage/operator-quay-io-remote-cache/opstree/redis-operator/latest/manifest.json";
 		try {
-			String result = ArtifactoryApiUtils.convertArtifactoryManifestJsonURI2Image(testUri);
+			String result = ArtifactoryUtils.convertArtifactoryManifestJsonURI2Image(testUri);
 			assertEquals(result, "ec2-3-15-23-148.us-east-2.compute.amazonaws.com/operator-quay-io-remote/opstree/redis-operator:latest");
 		} catch (MalformedURLException e) {
 			fail(e.getMessage());
@@ -57,7 +57,7 @@ public class ArtifactoryApiUtilsTests {
 		
 		testUri = "https://ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/artifactory/api/storage/operator-quay-io-remote-cache/coreos/prometheus-operator/sha256__933cd5bf380cf7db330808ff54f75f26fda0b1501021d499a1766b7d16224188/manifest.json";
 		try {
-			String result = ArtifactoryApiUtils.convertArtifactoryManifestJsonURI2Image(testUri);
+			String result = ArtifactoryUtils.convertArtifactoryManifestJsonURI2Image(testUri);
 			assertEquals(result, "ec2-3-15-23-148.us-east-2.compute.amazonaws.com:8081/operator-quay-io-remote/coreos/prometheus-operator@sha256:933cd5bf380cf7db330808ff54f75f26fda0b1501021d499a1766b7d16224188");
 		} catch (MalformedURLException e) {
 			fail(e.getMessage());
@@ -69,7 +69,7 @@ public class ArtifactoryApiUtilsTests {
 	void testParseManifestUrisFromApiResponseJson() {
 		try {
 			String json = IOUtils.toString(manifestUrisFromApiResponseJson.getInputStream(), StandardCharsets.UTF_8);
-			List<String> uris = ArtifactoryApiUtils.parseManifestUrisFromApiResponseJson(json);
+			List<String> uris = ArtifactoryUtils.parseManifestUrisFromApiResponseJson(json);
 			//There are 25 results in the test json file, but only 14 are for manifest.json urls. make sure 
 			//results are filtered by manifest.json urls
 			assertEquals(14, uris.size());
@@ -84,7 +84,7 @@ public class ArtifactoryApiUtilsTests {
 	void testStatusURLCreation() {
 
 		String host = "http://host:8080/", repoKey = "operator-dev/", path = "path/to/image/";
-		String result = ArtifactoryApiUtils.createSetStatusPropertiesURL(Optional.of(host), Optional.of(repoKey),
+		String result = ArtifactoryUtils.createSetStatusPropertiesURL(Optional.of(host), Optional.of(repoKey),
 				Optional.of(path));
 		assertEquals(result,
 				"http://host:8080/artifactory/api/metadata/operator-dev/path/to/image");
@@ -94,21 +94,21 @@ public class ArtifactoryApiUtilsTests {
 		host = "http://host:8080";
 		repoKey = "/operator-dev";
 		path = "/path/to/image/";
-		result = ArtifactoryApiUtils.createSetStatusPropertiesURL(Optional.of(host), Optional.of(repoKey),
+		result = ArtifactoryUtils.createSetStatusPropertiesURL(Optional.of(host), Optional.of(repoKey),
 				Optional.of(path));
 		assertEquals(result,
 				"http://host:8080/artifactory/api/metadata/operator-dev/path/to/image");
 
 		// calling the method with nulls should throw NPE
 		try {
-			ArtifactoryApiUtils.createSetStatusPropertiesURL(null, Optional.of("test"), null);
+			ArtifactoryUtils.createSetStatusPropertiesURL(null, Optional.of("test"), null);
 			fail("should have thrown an NPE");
 		} catch (NullPointerException e) {
 
 		}
 		
 		try {
-			ArtifactoryApiUtils.createSetStatusPropertiesURL(Optional.ofNullable(null), Optional.of("test"), Optional.of("test"));
+			ArtifactoryUtils.createSetStatusPropertiesURL(Optional.ofNullable(null), Optional.of("test"), Optional.of("test"));
 			fail("should have thrown an NPE");
 		} catch (NoSuchElementException e) {
 
