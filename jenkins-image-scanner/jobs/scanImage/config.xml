@@ -53,7 +53,7 @@
         }
         stage(&apos;Promotion&apos;){
             steps {
-                sleep 5
+                sh &quot;/usr/local/bin/promote-image.sh ${params.imageUrl}&quot;
             }
         }
     }
