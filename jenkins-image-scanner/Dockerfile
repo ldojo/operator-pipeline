@@ -13,4 +13,8 @@ COPY oc.tar.gz /tmp/
 
 USER root
 RUN tar zxf /tmp/oc.tar.gz -C /usr/local/bin/
+COPY scripts/promote-image.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/promote-image.sh
 USER jenkins
+
+COPY promotion "$JENKINS_HOME"/promotion

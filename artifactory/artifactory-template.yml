@@ -18,6 +18,16 @@ parameters:
 - description: "The image tag for Artifactory"
   name: "IMAGE"
   required: true
+- description: "The API endpoint for the image download plugin to hit with the image data"
+  name: "JFROG_EVENT_PROCESSOR"
+  required: true
+  value: "http://operator-pipeline-api:8080/downloadEvent"
+- description: "HTTP_PROXY"
+  name: HTTP_PROXY
+  required: false
+- description: "HTTPS_PROXY"
+  name: HTTPS_PROXY
+  required: false
 objects:
 - apiVersion: v1
   kind: Service
@@ -57,9 +67,12 @@ objects:
       spec:
         containers:
         - env:
-          - name: HTTP_PROXY
-          - name: HTTPS_PROXY
-          - name: NO_PROXY
+          - name: http_proxy
+            value: ${HTTP_PROXY}
+          - name: https_proxy
+            value: ${HTTPS_PROXY}
+          - name: JFROG_EVENT_PROCESSOR
+            value: ${JFROG_EVENT_PROCESSOR}          
           image: ${IMAGE}
           imagePullPolicy: Always
           name: ${NAME}

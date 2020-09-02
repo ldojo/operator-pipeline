@@ -1,0 +1,7 @@
+{
+  "auths": {
+      "artifactory:8081": {
+      "auth": "YWRtaW46cGFzc3dvcmQ="
+    }
+  }
+}

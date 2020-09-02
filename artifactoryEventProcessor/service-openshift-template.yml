@@ -57,11 +57,7 @@ objects:
         name: ${NAME}
       spec:
         containers:
-        - env:
-          - name: HTTP_PROXY
-          - name: HTTPS_PROXY
-          - name: NO_PROXY
-          image: ${IMAGE}
+        - image: ${IMAGE}
           imagePullPolicy: Always
           name: ${NAME}
           ports:

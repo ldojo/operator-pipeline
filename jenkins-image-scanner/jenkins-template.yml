@@ -11,7 +11,7 @@ parameters:
 - description: ""
   name: NAME
   required: true
-  value: "jenkins"
+  value: "image-scan-pipeline"
 - description: "Random 4 char string to append to NAME"
   name: RANDOM
   generate: expression
@@ -19,6 +19,12 @@ parameters:
 - description: "The image tag for Artifactory"
   name: "IMAGE"
   required: true
+- description: "HTTP PROXY"
+  name: "HTTP_PROXY"
+  required: false
+- description: "HTTPS PROXY"
+  name: "HTTPS_PROXY"
+  required: false
 - description: "The API endpoint that Jenkins with curl to invoke scanning of unscanned Images"
   name: "SCAN_UNSCANNED_IMGS_API_URL"
   required: true
@@ -60,14 +66,15 @@ objects:
           app: ${NAME}
         name: ${NAME}
       spec:
-        volumes:
-          - name: jenkins-volume-1
-            emptyDir: {}
+#        volumes:
+#          - name: jenkins-volume-1
+#            emptyDir: {}
         containers:
         - env:
-          - name: HTTP_PROXY
-          - name: HTTPS_PROXY
-          - name: NO_PROXY
+          - name: http_proxy
+            value: ${HTTP_PROXY}
+          - name: https_proxy
+            value: ${HTTPS_PROXY}
           - name: SCAN_UNSCANNED_IMGS_API_URL
             value: ${SCAN_UNSCANNED_IMGS_API_URL}
           image: ${IMAGE}
@@ -81,9 +88,9 @@ objects:
             requests:
 #              cpu: 100m
               memory: 2Gi
-          volumeMounts:
-            - name: jenkins-volume-1
-              mountPath: /var/jenkins_home
+#          volumeMounts:
+#            - name: jenkins-volume-1
+#              mountPath: /var/jenkins_home
         restartPolicy: Always
         terminationGracePeriodSeconds: 30
 - apiVersion: route.openshift.io/v1
