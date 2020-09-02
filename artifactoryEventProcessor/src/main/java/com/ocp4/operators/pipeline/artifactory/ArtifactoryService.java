@@ -22,5 +22,5 @@ public interface ArtifactoryService {
 	public Optional<List<String>> fetchUnscannedImages() throws ClientProtocolException, IOException;
 	public Optional<List<String>> fetchUnscannedManifestJsonUris() throws ClientProtocolException, IOException;
 	public void setScanStatus(String uri, ImageStatus status) throws ClientProtocolException, JsonProcessingException, IOException;
-	public List<String> imagePromotionTargets(String sourceImage);
+	public String imagePromotionTargets(String sourceImage);
 }

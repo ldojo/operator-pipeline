@@ -85,14 +85,14 @@ public class ArtifactoryServiceImpl implements ArtifactoryService{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<String> imagePromotionTargets(String sourceImage) {
+	public String imagePromotionTargets(String sourceImage) {
 		List<String> imagePromotionTargets = new ArrayList<String>();
 		try {
 			imagePromotionTargets = new ObjectMapper().readValue(imagePromotionTargetsJson.getInputStream(), List.class);
 		} catch (IOException e) {
 			throw new RuntimeException("could not read imagePromotionTargets.json file from classpath. Exception: " + e.getMessage());
 		}
-		return ArtifactoryUtils.imagePromotionTarget(sourceImage, imagePromotionTargets);
+		return ArtifactoryUtils.imagePromotionTargets(sourceImage, imagePromotionTargets);
 	}
 
 }

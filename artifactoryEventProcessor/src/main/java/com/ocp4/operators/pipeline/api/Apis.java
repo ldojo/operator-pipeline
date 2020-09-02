@@ -103,10 +103,9 @@ public class Apis {
 		}
 		return ResponseEntity.ok(scannedImages);
 	}
-	
 	@ApiOperation(produces = "application/json", value="given an image in an artifactory remote proxy repo, produces the target artifactory higher env repo the image should be promoted to")
-	@GetMapping("/imagePromotionTarget/${sourceImage}")
-	public ResponseEntity<?> imagePromotionTarget(@PathParam("sourceImage") String sourceImage){
+	@GetMapping("/imagePromotionTargets")
+	public ResponseEntity<?> imagePromotionTargets(@RequestParam("sourceImage") String sourceImage){
 		return ResponseEntity.ok(artifactoryService.imagePromotionTargets(sourceImage));
 	}
 	
