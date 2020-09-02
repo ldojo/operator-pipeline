@@ -30,16 +30,31 @@
     stages {
         stage(&apos;Scan&apos;) {
             steps {
-                            script 
-            {
-                if (params.imageUrl == &apos;&apos;) { // and/or whatever condition you want
-                    currentBuild.result = &apos;ABORTED&apos;
-                    error(&apos;params.imageUrl not set&apos;)
+                script 
+                {
+                    if (params.imageUrl == &apos;&apos;) { // and/or whatever condition you want
+                        currentBuild.result = &apos;ABORTED&apos;
+                        error(&apos;params.imageUrl not set&apos;)
+                    }
                 }
-            }
                 echo &quot;scanning image ${params.imageUrl}&quot;
-                sleep 30
-   	   }
+                sleep 5
+                }
+        }
+        stage(&apos;TDLC Maintenance&apos;){
+            steps {
+                sleep 5
+            }
+        }
+        stage(&apos;Eng Tests&apos;){
+            steps {
+                sleep 5
+            }
+        }
+        stage(&apos;Promotion&apos;){
+            steps {
+                sleep 5
+            }
         }
     }
 }
@@ -50,4 +65,3 @@
   <authToken>11fa58c035f322ef98b0d6d1d619998502</authToken>
   <disabled>false</disabled>
 </flow-definition>
-
