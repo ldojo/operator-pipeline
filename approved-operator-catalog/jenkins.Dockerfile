@@ -3,8 +3,9 @@ FROM docker.io/jenkins/jenkins:latest
 ENV JAVA_OPTS=-Djenkins.install.runSetupWizard=false
 
 user root
-RUN echo "deb http://old-releases.ubuntu.com/ubuntu vivid main universe" >> /etc/apt/sources.list && \
-   apt-get update -y && apt-get install jq -y
+RUN apt-get -y -qq update && \
+    curl -o /usr/local/bin/jq http://stedolan.github.io/jq/download/linux64/jq && \
+    chmod +x /usr/local/bin/jq
 user jenkins
 
 COPY jenkins/users "$JENKINS_HOME"/users/
